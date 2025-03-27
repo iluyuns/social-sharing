@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>社交分享示例</title>
+
+    <!-- 基础 Meta 标签 -->
+    <meta name="description" content="这是一个社交分享示例页面，展示了如何实现各种社交平台的分享功能。">
+    <meta name="keywords" content="社交分享, 分享按钮, Web Share API">
+    <meta name="author" content="Your Name">
+
+    <!-- Open Graph (Facebook, WhatsApp, Telegram, LINE, Zalo) -->
+    <meta property="og:title" content="社交分享示例">
+    <meta property="og:description" content="这是一个社交分享示例页面，展示了如何实现各种社交平台的分享功能。">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1200&h=630&fit=crop">
+    <meta property="og:url" content="https://tokyo.minis.app">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="社交分享示例">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@yourusername">
+    <meta name="twitter:title" content="社交分享示例">
+    <meta name="twitter:description" content="这是一个社交分享示例页面，展示了如何实现各种社交平台的分享功能。">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1200&h=630&fit=crop">
+
+    <!-- LinkedIn -->
+    <meta property="linkedin:card" content="summary_large_image">
+    <meta property="linkedin:title" content="社交分享示例">
+    <meta property="linkedin:description" content="这是一个社交分享示例页面，展示了如何实现各种社交平台的分享功能。">
+    <meta property="linkedin:image" content="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=1200&h=630&fit=crop">
+
+    <!-- Telegram -->
+    <meta property="telegram:channel" content="@yourchannel">
+
+    <!-- Facebook SDK -->
+
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .share-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 20px;
+            justify-content: center;
+        }
+
+        .share-button {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            border: none;
+            font-size: 14px;
+            transition: opacity 0.2s;
+        }
+
+        .share-button:hover {
+            opacity: 0.9;
+        }
+
+        /* 各平台按钮样式 */
+        .twitter-button { background-color: #1DA1F2; }
+        .facebook-button { background-color: #4267B2; }
+        .whatsapp-button { background-color: #25D366; }
+        .telegram-button { background-color: #0088cc; }
+        .line-button { background-color: #00B900; }
+        .zalo-button { background-color: #0068FF; }
+        .instagram-button { background-color: #E4405F; }
+        .tiktok-button { background-color: #000000; }
+        .system-share-button { background-color: #666; }
+
+        .content-section {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .share-info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+        }
+
+        .share-info h3 {
+            margin-top: 0;
+            color: #495057;
+        }
+
+        .share-info p {
+            margin: 5px 0;
+        }
+
+        @media (max-width: 600px) {
+            .share-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .share-button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>社交分享示例</h1>
+        
+        <div class="content-section">
+            <h2>分享按钮</h2>
+            <div class="share-container">
+                <button class="share-button twitter-button" onclick="shareToX('https://tokyo.minis.app', '看看这个很棒的网站！', 'yourusername')">分享到X</button>
+                <button class="share-button whatsapp-button" onclick="shareToWhatsApp('https://tokyo.minis.app', '看看这个很棒的网站！')">分享到WhatsApp</button>
+                <button class="share-button telegram-button" onclick="shareToTelegram('https://tokyo.minis.app', '看看这个很棒的网站！')">分享到Telegram</button>
+                <button class="share-button line-button" onclick="shareToLine('https://tokyo.minis.app', '看看这个很棒的网站！')">分享到LINE</button>
+                <button class="share-button zalo-button" onclick="shareToZalo('https://tokyo.minis.app', '看看这个很棒的网站！')">分享到Zalo</button>
+                <button class="share-button instagram-button" onclick="shareToInstagram('https://tokyo.minis.app', '看看这个很棒的网站！')">分享到Instagram</button>
+                <button class="share-button tiktok-button" onclick="shareToTikTok('https://tokyo.minis.app', '看看这个很棒的网站！')">分享到TikTok</button>
+                <button class="share-button system-share-button" onclick="shareContent('分享标题', '看看这个很棒的网站！', 'https://tokyo.minis.app')">使用系统分享</button>
+            </div>
+        </div>
+
+
+        <div class="content-section">
+            <h2>Facebook 分享按钮</h2>
+            <div class="share-container">
+                <!-- 使用 Facebook SDK 的按钮 -->
+                <button class="share-button facebook-button" onclick="FacebookSDK('https://tokyo.minis.app', '看看这个很棒的网站！')">使用 SDK 分享</button>
+                
+                <!-- Facebook 官方分享按钮 -->
+                <div class="fb-share-button" data-href="https://tokyo.minis.app" data-layout="button_count"></div>
+            </div>
+        </div>
+
+        <div class="share-info">
+            <h3>分享信息</h3>
+            <p>当前页面URL: <span id="current-url"></span></p>
+            <p>分享标题: 社交分享示例</p>
+            <p>分享描述: 这是一个社交分享示例页面，展示了如何实现各种社交平台的分享功能。</p>
+        </div>
+    </div>
+
+    <script src="social-sharing.js"></script>
+    <script>
+        // 显示当前页面URL
+        document.getElementById('current-url').textContent = window.location.href;
+
+        
+    </script>
+</body>
+<div id="fb-root" />
+<script async defer crossorigin="anonymous"
+src="https://connect.facebook.net/zh_CN/sdk.js#xfbml=1&version=v22.0"></script>
+
+
+
+<script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '1164385048618583',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v22.0'
+      });
+        
+      FB.AppEvents.logPageView();   
+        
+    };
+  
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+</html>

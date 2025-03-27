@@ -1,0 +1,15 @@
+# 一个静态服务器，gin 实现
+# 使用 docker-compose 部署
+
+services:
+  social-sharing:
+    image: golang:latest
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./:/home/app/
+    environment:
+      - TZ=Asia/Shanghai
+    restart: always
+    working_dir: /home/app
+    command: ["go", "run", "main.go"] # 运行命令
